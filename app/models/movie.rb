@@ -5,6 +5,9 @@ class Movie < ActiveRecord::Base
     else
       self.all
     end
-    
+  end
+  
+  def self.all_ratings
+    self.pluck(:rating)
   end
 end
