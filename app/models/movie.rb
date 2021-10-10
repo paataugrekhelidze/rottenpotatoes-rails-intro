@@ -8,6 +8,6 @@ class Movie < ActiveRecord::Base
   end
   
   def self.all_ratings
-    self.pluck(:rating)
+    self.uniq.pluck(:rating)
   end
 end
