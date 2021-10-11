@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-
+  
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
@@ -10,29 +10,50 @@ class MoviesController < ApplicationController
     @clicked = ''
     @ratings_to_show = []
     @all_ratings = Movie.all_ratings
-    if !params[:ratings].nil?
-      params[:ratings].each { |key, value| 
-        @ratings_to_show.push(key)
-      }
-    end
-    @movies = Movie.with_ratings(@ratings_to_show)
+#     if !params[:ratings].nil?
+#       params[:ratings].each { |key, value| 
+#         @ratings_to_show.push(key)
+#       }
+#     end
+#     @movies = Movie.with_ratings(@ratings_to_show)
     
     
-    if !params[:header].nil?
-      @clicked=params[:header]
-      @movies = @movies.orderby(@clicked)     
+#     if !params[:header].nil?
+#       @clicked=params[:header]
+#       @movies = @movies.orderby(@clicked)     
+#     end
+    
+    
+    if params[:home].nil?
+      if !params[:ratings].nil?
+        params[:ratings].each { |key, value| 
+          @ratings_to_show.push(key)
+        }
+      end
+      @movies = Movie.with_ratings(@ratings_to_show)
+      
+      if !params[:header].nil?
+        @clicked=params[:header]
+        @movies = @movies.orderby(@clicked)     
+      end
+      session[:ratings] = params[:ratings]
+      session[:header] = params[:header]
+    else
+      if !session[:ratings].nil?
+        session[:ratings].each { |key, value| 
+          @ratings_to_show.push(key)
+        }
+      end
+      @movies = Movie.with_ratings(@ratings_to_show)
+      
+      if !session[:header].nil?
+        @clicked=session[:header]
+        @movies = @movies.orderby(@clicked)     
+      end
     end
     
   end
   
-  
-#   def getclassname(inp)
-#     if inp==@clicked
-#       return "hilite text-warning"
-#     end
-#     return ""
-#   end
-#   helper_method :setColor
 
   def new
     # default: render 'new' template

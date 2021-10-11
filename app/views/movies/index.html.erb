@@ -16,9 +16,9 @@
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <th class="<%= @clicked=="title_header" ? 'hilite bg-warning' : '' %>"><%= link_to 'Movie Title', movies_path({:header => "title_header"}, :ratings => @ratings_to_show.each_with_object({}) { |k, h| h[k] = '1' }), :id => "title_header" %></th>
+      <th class="<%= @clicked=="title_header" ? 'hilite bg-warning' : '' %>"><%= link_to 'Movie Title', movies_path({:header => "title_header",:ratings => @ratings_to_show.each_with_object({}) { |k, h| h[k] = '1' }}), :id => "title_header" %></th>
       <th>Rating</th>
-      <th class="<%= @clicked=="release_date_header" ? 'hilite bg-warning' : '' %>"><%= link_to 'Release Date', movies_path({:header => "release_date_header", :ratings => @ratings_to_show.each_with_object({}) { |k, h| h[k] = '1' }}), :id => "release_date_header" %></th>
+      <th class="<%= @clicked=="release_date_header" ? 'hilite bg-warning' : '' %>"><%= link_to 'Release Date', movies_path({:header => "release_date_header",:ratings => @ratings_to_show.each_with_object({}) { |k, h| h[k] = '1' }}), :id => "release_date_header" %></th>
       <th>More Info</th>
     </tr>
   </thead>
