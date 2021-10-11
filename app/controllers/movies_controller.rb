@@ -7,6 +7,7 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @clicked = ''
     @ratings_to_show = []
     @all_ratings = Movie.all_ratings
     if !params[:ratings].nil?
@@ -14,9 +15,24 @@ class MoviesController < ApplicationController
         @ratings_to_show.push(key)
       }
     end
-    
     @movies = Movie.with_ratings(@ratings_to_show)
+    
+    
+    if !params[:header].nil?
+      @clicked=params[:header]
+      @movies = @movies.orderby(@clicked)     
+    end
+    
   end
+  
+  
+#   def getclassname(inp)
+#     if inp==@clicked
+#       return "hilite text-warning"
+#     end
+#     return ""
+#   end
+#   helper_method :setColor
 
   def new
     # default: render 'new' template
